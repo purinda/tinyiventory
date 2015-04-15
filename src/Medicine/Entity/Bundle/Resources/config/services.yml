@@ -1,0 +1,4 @@
+services:
+#    medicine_entity.example:
+#        class: Medicine\Entity\Bundle\Example
+#        arguments: [@service_id, "plain_value", %parameter%]
