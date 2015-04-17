@@ -5,15 +5,15 @@ namespace Medicine\Entity\Bundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Item
+ * Item.
  *
- * @ORM\Table()
+ * @ORM\Table(name="item")
  * @ORM\Entity
  */
 class Item
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -42,11 +42,10 @@ class Item
      */
     private $addedDate;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -54,9 +53,10 @@ class Item
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Item
      */
     public function setName($name)
@@ -67,9 +67,9 @@ class Item
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {
@@ -77,9 +77,10 @@ class Item
     }
 
     /**
-     * Set description
+     * Set description.
      *
      * @param string $description
+     *
      * @return Item
      */
     public function setDescription($description)
@@ -90,9 +91,9 @@ class Item
     }
 
     /**
-     * Get description
+     * Get description.
      *
-     * @return string 
+     * @return string
      */
     public function getDescription()
     {
@@ -100,9 +101,10 @@ class Item
     }
 
     /**
-     * Set addedDate
+     * Set addedDate.
      *
      * @param \DateTime $addedDate
+     *
      * @return Item
      */
     public function setAddedDate($addedDate)
@@ -113,9 +115,9 @@ class Item
     }
 
     /**
-     * Get addedDate
+     * Get addedDate.
      *
-     * @return \DateTime 
+     * @return \DateTime
      */
     public function getAddedDate()
     {

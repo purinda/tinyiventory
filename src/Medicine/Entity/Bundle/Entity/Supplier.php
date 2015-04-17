@@ -5,15 +5,15 @@ namespace Medicine\Entity\Bundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * Supplier
+ * Supplier.
  *
- * @ORM\Table()
+ * @ORM\Table(name="supplier")
  * @ORM\Entity
  */
 class Supplier
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -28,11 +28,10 @@ class Supplier
      */
     private $name;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -40,9 +39,10 @@ class Supplier
     }
 
     /**
-     * Set name
+     * Set name.
      *
      * @param string $name
+     *
      * @return Supplier
      */
     public function setName($name)
@@ -53,9 +53,9 @@ class Supplier
     }
 
     /**
-     * Get name
+     * Get name.
      *
-     * @return string 
+     * @return string
      */
     public function getName()
     {

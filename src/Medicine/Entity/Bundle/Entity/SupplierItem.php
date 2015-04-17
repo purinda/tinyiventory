@@ -5,15 +5,15 @@ namespace Medicine\Entity\Bundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * SupplierItem
+ * SupplierItem.
  *
- * @ORM\Table()
+ * @ORM\Table(name="supplier_item")
  * @ORM\Entity(repositoryClass="Medicine\Entity\Bundle\Entity\SupplierItemRepository")
  */
 class SupplierItem
 {
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -22,31 +22,30 @@ class SupplierItem
     private $id;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="supplier_id", type="integer")
      */
     private $supplierId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="item_id", type="integer")
      */
     private $itemId;
 
     /**
-     * @var integer
+     * @var int
      *
      * @ORM\Column(name="quantity_available", type="integer")
      */
     private $quantityAvailable;
 
-
     /**
-     * Get id
+     * Get id.
      *
-     * @return integer 
+     * @return int
      */
     public function getId()
     {
@@ -54,9 +53,10 @@ class SupplierItem
     }
 
     /**
-     * Set supplierId
+     * Set supplierId.
      *
-     * @param integer $supplierId
+     * @param int $supplierId
+     *
      * @return SupplierItem
      */
     public function setSupplierId($supplierId)
@@ -67,9 +67,9 @@ class SupplierItem
     }
 
     /**
-     * Get supplierId
+     * Get supplierId.
      *
-     * @return integer 
+     * @return int
      */
     public function getSupplierId()
     {
@@ -77,9 +77,10 @@ class SupplierItem
     }
 
     /**
-     * Set itemId
+     * Set itemId.
      *
-     * @param integer $itemId
+     * @param int $itemId
+     *
      * @return SupplierItem
      */
     public function setItemId($itemId)
@@ -90,9 +91,9 @@ class SupplierItem
     }
 
     /**
-     * Get itemId
+     * Get itemId.
      *
-     * @return integer 
+     * @return int
      */
     public function getItemId()
     {
@@ -100,9 +101,10 @@ class SupplierItem
     }
 
     /**
-     * Set quantityAvailable
+     * Set quantityAvailable.
      *
-     * @param integer $quantityAvailable
+     * @param int $quantityAvailable
+     *
      * @return SupplierItem
      */
     public function setQuantityAvailable($quantityAvailable)
@@ -113,9 +115,9 @@ class SupplierItem
     }
 
     /**
-     * Get quantityAvailable
+     * Get quantityAvailable.
      *
-     * @return integer 
+     * @return int
      */
     public function getQuantityAvailable()
     {
