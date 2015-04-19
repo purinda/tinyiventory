@@ -19,28 +19,29 @@ class SupplierItem
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var int
      *
-     * @ORM\Column(name="supplier_id", type="integer")
+     * @ORM\JoinColumn(name="supplier_id", referencedColumnName="id")
+     * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="supplierItems")
      */
-    private $supplierId;
+    protected $supplierId;
 
     /**
      * @var int
-     *
-     * @ORM\Column(name="item_id", type="integer")
+     * @ORM\ManyToOne(targetEntity="Item")
+     * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
      */
-    private $itemId;
+    protected $itemId;
 
     /**
      * @var int
      *
      * @ORM\Column(name="quantity_available", type="integer")
      */
-    private $quantityAvailable;
+    protected $quantityAvailable;
 
     /**
      * Get id.

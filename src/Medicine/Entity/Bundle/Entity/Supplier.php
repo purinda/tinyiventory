@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Supplier.
  *
  * @ORM\Table(name="supplier")
- * @ORM\Entity
+ * @ORM\Entity()
  */
 class Supplier
 {
@@ -27,6 +27,13 @@ class Supplier
      * @ORM\Column(name="name", type="string", length=255)
      */
     private $name;
+
+    /**
+     * @var array
+     *
+     * @ORM\OneToMany(targetEntity="SupplierItem", mappedBy="supplierId")
+     */
+    protected $supplierItems;
 
     /**
      * Get id.
