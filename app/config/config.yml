@@ -45,6 +45,7 @@ assetic:
     assets:
         js:
             inputs:
+                - '%kernel.root_dir%/../vendor/components/jquery/jquery.min.js'
                 - '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js'
             output: 'js/combined.js'
         css:

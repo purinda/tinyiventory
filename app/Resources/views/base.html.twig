@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        {% stylesheets '@css' %}
-        <link href="{{ asset_url }}" rel="stylesheet" />
-        {% endstylesheets %}
+  <head>
+    <meta charset="UTF-8" />
+    <title>{% block title %}Welcome!{% endblock %}</title>
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% stylesheets '@css' %}
+    <link href="{{ asset_url }}" rel="stylesheet" />
+    {% endstylesheets %}
 
-        {% javascripts
-            '@js' %}
-        <script src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+    {% javascripts
+      '@js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+  </head>
+  <body>
+    {% include 'partials/nav.html.twig' %}
+
+    {% block body %}{% endblock %}
+  </body>
 </html>
