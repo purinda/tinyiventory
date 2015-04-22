@@ -8,28 +8,46 @@
     <thead>
       <tr>
         <th>Item</th>
-        <th>Avl. Stock: Hospital</th>
-        <th>Avl. Stock: Private</th>
+        <th>Stock: Hospital</th>
+        <th>Stock: Private</th>
         <th></th>
       </tr>
     </thead>
     <tfoot>
         <th>Item</th>
-        <th>Avl. Stock: Hospital</th>
-        <th>Avl. Stock: Private</th>
+        <th>Stock: Hospital</th>
+        <th>Stock: Private</th>
         <th></th>
     </tfoot>
     <tbody>
       <tr>
-        <td>Penadol</td>
-        <td>100</td>
-        <td>89</td>
+        <td class="item">Penadol</td>
         <td>
-          <button class="btn btn-sm btn-success">
-            <i class="glyphicon glyphicon-plus-sign"></i>
-          </button>
-          <button class="btn btn-sm btn-danger">
-            <i class="glyphicon glyphicon-minus-sign"></i>
+          <h4><span class="label label-danger">90</span></h4>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="1" size="1">
+            <span class="input-group-btn">
+              <button class="btn btn-default">
+                <i class="glyphicon glyphicon-minus-sign"></i>
+              </button>
+            </span>
+          </div>
+        </td>
+        <td>
+          <h4><span class="label label-success">90</span></h4>
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="1" size="1">
+            <span class="input-group-btn">
+              <button class="btn btn-default">
+                <i class="glyphicon glyphicon-minus-sign"></i>
+              </button>
+            </span>
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-primary">
+            <i class="glyphicon glyphicon-list-alt"></i>
+            Edit
           </button>
         </td>
       </tr>

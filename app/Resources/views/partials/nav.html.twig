@@ -15,8 +15,40 @@
         <li class="active"><a href="#">Overview</a></li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <li class="active"><a href="#">Add Item</a></li>
+        <li class="active"><a href="#" data-toggle="modal" data-target="#newItemModal">Add item</a></li>
       </ul>
     </div><!--/.nav-collapse -->
   </div>
 </nav>
+
+<!-- New Item Modal -->
+<div class="modal fade" id="newItemModal" tabindex="-1" role="dialog" aria-labelledby="newItemModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="newItemModalLabel">New item</h4>
+      </div>
+      <div class="modal-body">
+        <form data-id="">
+          <div class="form-group">
+            <label for="itemNameInput">Item name</label>
+            <input type="text" class="form-control" id="itemNameInput" placeholder="Manufacturer name of the item">
+          </div>
+          <div class="form-group">
+            <label for="itemAvailHospital">Avail. hospital</label>
+            <input type="text" class="form-control" id="itemAvailHospital" placeholder="#">
+          </div>
+          <div class="form-group">
+            <label for="itemAvailPrivately">Avail. privately</label>
+            <input type="text" class="form-control" id="itemAvailPrivately" placeholder="#">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>

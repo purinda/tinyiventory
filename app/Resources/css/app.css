@@ -1,4 +1,22 @@
 body {
-  padding-top: 70px;
-  padding-bottom: 30px;
+    padding-top: 70px;
+    padding-bottom: 30px;
 }
+
+table#inventory tbody tr td {
+    text-align: center;
+}
+
+table#inventory tbody tr td.item {
+    text-align: left;
+    vertical-align: middle;
+}
+
+table#inventory tbody tr td h4 {
+    display: inline-table;
+}
+
+table#inventory tbody tr td div {
+    display: inline-table;
+}
+
