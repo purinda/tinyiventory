@@ -6,6 +6,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Medicine\Entity\Bundle\Entity\Item;
+use Medicine\Entity\Bundle\Entity\SupplierItem;
 
 class DefaultController extends Controller
 {
@@ -20,16 +21,7 @@ class DefaultController extends Controller
      */
     public function overviewAction(Request $request)
     {
-        $form_data = [];
-
-        $this->form = $this->createFormBuilder($form_data)
-            ->add('name', 'text')
-            ->add('description', 'text')
-            ->add('stock_hospital', 'text', ['label' => 'Stock hospital'])
-            ->add('stock_private', 'text', ['label' => 'Stock private'])
-            ->add('send', 'submit', ['label' => 'Save'])
-            ->getForm();
-
+        $this->setupItemForm();
         $this->form->handleRequest($request);
 
         if ($this->form->isValid()) {
@@ -42,6 +34,23 @@ class DefaultController extends Controller
                 'form' => $this->form->createView()
             ]
         );
+    }
+
+    /**
+     * Setup $this->form object to its initial configuration
+     *
+     * @return void
+     */
+    public function setupItemForm()
+    {
+        $this->form = $this->createFormBuilder([])
+            ->add('name', 'text')
+            ->add('description', 'text')
+            ->add('stock_hospital', 'text', ['label' => 'Stock hospital'])
+            ->add('stock_private', 'text', ['label' => 'Stock private'])
+            ->add('send', 'submit', ['label' => 'Save'])
+            ->getForm()
+        ;
     }
 
     /**
@@ -60,7 +69,11 @@ class DefaultController extends Controller
             ->setDescription($data['description'])
         ;
 
+        $supplier_item = new SupplierItem();
+
         $em->persist($item);
         $em->flush();
+
+        $this->setupItemForm();
     }
 }
