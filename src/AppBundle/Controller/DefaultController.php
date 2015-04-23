@@ -11,7 +11,6 @@ use Medicine\Entity\Bundle\Entity\SupplierItem;
 class DefaultController extends Controller
 {
     /**
-     *
      * @var Symfony\Component\Form\Form
      */
     protected $form;
@@ -31,15 +30,13 @@ class DefaultController extends Controller
         return $this->render(
             'default/overview.html.twig',
             [
-                'form' => $this->form->createView()
+                'form' => $this->form->createView(),
             ]
         );
     }
 
     /**
-     * Setup $this->form object to its initial configuration
-     *
-     * @return void
+     * Setup $this->form object to its initial configuration.
      */
     public function setupItemForm()
     {
@@ -54,8 +51,10 @@ class DefaultController extends Controller
     }
 
     /**
-     * Save the data found in the request
-     * @param  Request $request
+     * Save the data found in the request.
+     *
+     * @param Request $request
+     *
      * @return bool
      */
     public function save(Request $request)
