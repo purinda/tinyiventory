@@ -57,7 +57,7 @@ class DefaultController extends Controller
         $item = new Item();
         $item
             ->setName($data['name'])
-            ->setDescription('')
+            ->setDescription($data['description'])
         ;
 
         $em->persist($item);
