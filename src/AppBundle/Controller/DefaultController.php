@@ -10,29 +10,36 @@ use Medicine\Entity\Bundle\Entity\Item;
 class DefaultController extends Controller
 {
     /**
+     *
+     * @var Symfony\Component\Form\Form
+     */
+    protected $form;
+
+    /**
      * @Route("/", name="overview")
      */
     public function overviewAction(Request $request)
     {
         $form_data = [];
 
-        $form = $this->createFormBuilder($form_data)
+        $this->form = $this->createFormBuilder($form_data)
             ->add('name', 'text')
+            ->add('description', 'text')
             ->add('stock_hospital', 'text', ['label' => 'Stock hospital'])
             ->add('stock_private', 'text', ['label' => 'Stock private'])
             ->add('send', 'submit', ['label' => 'Save'])
             ->getForm();
 
-        $form->handleRequest($request);
+        $this->form->handleRequest($request);
 
-        if ($form->isValid()) {
+        if ($this->form->isValid()) {
             $this->save($request);
         }
 
         return $this->render(
             'default/overview.html.twig',
             [
-                'form' => $form->createView()
+                'form' => $this->form->createView()
             ]
         );
     }
@@ -44,6 +51,16 @@ class DefaultController extends Controller
      */
     public function save(Request $request)
     {
-        dump($request);
+        $em = $this->getDoctrine()->getManager();
+        $data = $this->form->getData();
+
+        $item = new Item();
+        $item
+            ->setName($data['name'])
+            ->setDescription('')
+        ;
+
+        $em->persist($item);
+        $em->flush();
     }
 }

@@ -38,7 +38,7 @@ class Item
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="added_date", type="date")
+     * @ORM\Column(name="added_date", type="datetime", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
      */
     private $addedDate;
 

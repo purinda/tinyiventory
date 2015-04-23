@@ -34,6 +34,7 @@
         <div class="modal-body">
           <div class="form-group">
             {{ form_row(form.name, {'attr': {'placeholder':'Manufacturer name of the item'}}) }}
+            {{ form_row(form.description, {'attr': {'placeholder':'Note about the medicine'}}) }}
             {{ form_row(form.stock_hospital, {'attr': {'placeholder':'#'}}) }}
             {{ form_row(form.stock_private, {'attr': {'placeholder':'#'}}) }}
           </div>
