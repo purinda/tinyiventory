@@ -20,8 +20,9 @@
         <th></th>
     </tfoot>
     <tbody>
+      {% for supplier_item in supplier_items %}
       <tr>
-        <td class="item">Penadol</td>
+        <td class="item">{{ supplier_item.itemid.name }}</td>
         <td>
           <h4><span class="label label-danger">90</span></h4>
           <div class="input-group">
@@ -51,6 +52,7 @@
           </button>
         </td>
       </tr>
+      {% endfor %}
     </tbody>
   </table>
 </div>

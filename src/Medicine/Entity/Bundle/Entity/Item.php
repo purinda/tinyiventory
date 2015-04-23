@@ -19,7 +19,7 @@ class Item
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
@@ -32,14 +32,14 @@ class Item
      *     nullable=false
      * )
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
      *
      * @ORM\Column(name="description", type="string", length=1024)
      */
-    private $description;
+    protected $description;
 
     /**
      * @var \DateTime

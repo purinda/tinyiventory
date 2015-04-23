@@ -27,10 +27,18 @@ class DefaultController extends Controller
             $this->save($request);
         }
 
+        // Find all SupplierItems
+        $supplier_items = $this
+            ->getDoctrine()
+            ->getRepository('MedicineEntityBundle:SupplierItem')
+            ->findAll()
+        ;
+
         return $this->render(
             'default/overview.html.twig',
             [
-                'form' => $this->form->createView(),
+                'supplier_items' => $supplier_items,
+                'form'           => $this->form->createView(),
             ]
         );
     }
@@ -68,9 +76,41 @@ class DefaultController extends Controller
             ->setDescription($data['description'])
         ;
 
-        $supplier_item = new SupplierItem();
-
+        // persist
         $em->persist($item);
+        $em->flush();
+
+        // Find supplier based on name (Private, Hospital)
+        $supplier_private = $this
+            ->getDoctrine()
+            ->getRepository('MedicineEntityBundle:Supplier')
+            ->findByName('Private')
+        ;
+
+        $supplier_hospital = $this
+            ->getDoctrine()
+            ->getRepository('MedicineEntityBundle:Supplier')
+            ->findByName('Hospital')
+        ;
+
+        // Set Supplier Item Availability
+        $supplier_hospital_item = new SupplierItem();
+        $supplier_hospital_item
+            ->setSupplierId($supplier_hospital[0])
+            ->setItemId($item)
+            ->setQuantityAvailable($data['stock_hospital'])
+        ;
+
+        $supplier_private_item = new SupplierItem();
+        $supplier_private_item
+            ->setSupplierId($supplier_private[0])
+            ->setItemId($item)
+            ->setQuantityAvailable($data['stock_private'])
+        ;
+
+        // persist
+        $em->persist($supplier_hospital_item);
+        $em->persist($supplier_private_item);
         $em->flush();
 
         $this->setupItemForm();
