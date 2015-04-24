@@ -8,43 +8,42 @@
     <thead>
       <tr>
         <th>Item</th>
-        <th>Stock: Hospital</th>
-        <th>Stock: Private</th>
+        {% for item in suppliers %}
+        <th>Stock: {{ item.name }}</th>
+        {% endfor %}
         <th></th>
       </tr>
     </thead>
     <tfoot>
         <th>Item</th>
-        <th>Stock: Hospital</th>
-        <th>Stock: Private</th>
+        {% for item in suppliers %}
+        <th>Stock: {{ item.name }}</th>
+        {% endfor %}
         <th></th>
     </tfoot>
     <tbody>
-      {% for supplier_item in supplier_items %}
+    {% for item in items %}
       <tr>
-        <td class="item">{{ supplier_item.itemid.name }}</td>
+        <td class="item">{{ item.name }}</td>
+        {% for supplier_item in item.suppliers %}
         <td>
-          <h4><span class="label label-danger">90</span></h4>
+          {# Decide color based on stock level  #}
+          {% if supplier_item.qty < 100 %}
+            {% set class = 'danger' %}
+          {% else %}
+            {% set class = 'success' %}
+          {% endif %}
+          <h4><span class="label label-{{ class }}">{{ supplier_item.qty }}</span></h4>
           <div class="input-group">
             <input type="text" class="form-control" placeholder="1" size="1">
             <span class="input-group-btn">
-              <button class="btn btn-default">
+              <button data-supplier-id='{{ supplier_item.id }}' class="btn btn-default">
                 <i class="glyphicon glyphicon-minus-sign"></i>
               </button>
             </span>
           </div>
         </td>
-        <td>
-          <h4><span class="label label-success">90</span></h4>
-          <div class="input-group">
-            <input type="text" class="form-control" placeholder="1" size="1">
-            <span class="input-group-btn">
-              <button class="btn btn-default">
-                <i class="glyphicon glyphicon-minus-sign"></i>
-              </button>
-            </span>
-          </div>
-        </td>
+       {% endfor %}
         <td>
           <button class="btn btn-primary">
             <i class="glyphicon glyphicon-list-alt"></i>
@@ -52,7 +51,7 @@
           </button>
         </td>
       </tr>
-      {% endfor %}
+    {% endfor %}
     </tbody>
   </table>
 </div>

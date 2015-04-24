@@ -27,14 +27,14 @@ class SupplierItem
      * @ORM\JoinColumn(name="supplier_id", referencedColumnName="id")
      * @ORM\ManyToOne(targetEntity="Supplier", inversedBy="supplierItems")
      */
-    protected $supplierId;
+    protected $supplier;
 
     /**
      * @var int
      * @ORM\ManyToOne(targetEntity="Item")
      * @ORM\JoinColumn(name="item_id", referencedColumnName="id")
      */
-    protected $itemId;
+    protected $item;
 
     /**
      * @var int
@@ -54,51 +54,51 @@ class SupplierItem
     }
 
     /**
-     * Set supplierId.
+     * Set supplier.
      *
-     * @param int $supplierId
+     * @param int $supplier
      *
      * @return SupplierItem
      */
-    public function setSupplierId($supplierId)
+    public function setSupplier($supplier)
     {
-        $this->supplierId = $supplierId;
+        $this->supplier = $supplier;
 
         return $this;
     }
 
     /**
-     * Get supplierId.
+     * Get supplier.
      *
      * @return int
      */
-    public function getSupplierId()
+    public function getSupplier()
     {
-        return $this->supplierId;
+        return $this->supplier;
     }
 
     /**
-     * Set itemId.
+     * Set item.
      *
-     * @param int $itemId
+     * @param int $item
      *
      * @return SupplierItem
      */
-    public function setItemId($itemId)
+    public function setItem($item)
     {
-        $this->itemId = $itemId;
+        $this->item = $item;
 
         return $this;
     }
 
     /**
-     * Get itemId.
+     * Get item.
      *
      * @return int
      */
-    public function getItemId()
+    public function getItem()
     {
-        return $this->itemId;
+        return $this->item;
     }
 
     /**

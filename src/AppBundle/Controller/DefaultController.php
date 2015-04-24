@@ -34,11 +34,30 @@ class DefaultController extends Controller
             ->findAll()
         ;
 
+        // format them to be used in list view
+        $items = [];
+        $suppliers = [];
+        $current_id = null;
+        foreach ($supplier_items as $supplier_item) {
+            $item     = $supplier_item->getItem();
+            $current_id = $item->getId();
+
+            $supplier = $supplier_item->getSupplier();
+            $suppliers[$supplier->getId()] = $supplier;
+
+            $items[$current_id]['name'] = $item->getName();
+            $items[$current_id]['description'] = $item->getDescription();
+            $items[$current_id]['suppliers'][$supplier->getId()]['id']   = $supplier_item->getId();
+            $items[$current_id]['suppliers'][$supplier->getId()]['name'] = $supplier->getName();
+            $items[$current_id]['suppliers'][$supplier->getId()]['qty']  = $supplier_item->getQuantityAvailable();
+        }
+
         return $this->render(
             'default/overview.html.twig',
             [
-                'supplier_items' => $supplier_items,
-                'form'           => $this->form->createView(),
+                'items'     => $items,
+                'suppliers' => $suppliers,
+                'form'      => $this->form->createView(),
             ]
         );
     }
@@ -96,15 +115,15 @@ class DefaultController extends Controller
         // Set Supplier Item Availability
         $supplier_hospital_item = new SupplierItem();
         $supplier_hospital_item
-            ->setSupplierId($supplier_hospital[0])
-            ->setItemId($item)
+            ->setSupplier($supplier_hospital[0])
+            ->setItem($item)
             ->setQuantityAvailable($data['stock_hospital'])
         ;
 
         $supplier_private_item = new SupplierItem();
         $supplier_private_item
-            ->setSupplierId($supplier_private[0])
-            ->setItemId($item)
+            ->setSupplier($supplier_private[0])
+            ->setItem($item)
             ->setQuantityAvailable($data['stock_private'])
         ;
 
