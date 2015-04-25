@@ -76,7 +76,7 @@ $(document).ready(function() {
 
         if (how_many > 1) {
             bootbox.confirm(
-                "Taking " + how_many + " item?",
+                "Taking " + how_many + " items?",
                 function(result) {
                     if (false == result) {
                         return;
