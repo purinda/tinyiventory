@@ -24,4 +24,24 @@ $(document).ready(function() {
         $dialog.find('#form_stock_hospital').val(hospital_stock);
         $dialog.find('#form_stock_private').val(private_stock);
     });
+
+    // Button delete
+    $('button.btn-delete').on('click', function(evt) {
+        var $tr = $(evt.target).parents('tr');
+
+        var id   = $tr.data('supplier-item-id');
+        var name = $tr.find('td.first').html();
+
+        bootbox.confirm(
+            "Do you want to remove <strong>" + name + "</strong>? this action cannot be undone.",
+            function(result) {
+                if (false == result) {
+                    return;
+                }
+
+                window.location.href = '/delete/' + id;
+            }
+        );
+
+    });
 });

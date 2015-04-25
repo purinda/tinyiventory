@@ -60,6 +60,7 @@ assetic:
                 - '%kernel.root_dir%/../vendor/twbs/bootstrap/dist/js/bootstrap.js'
                 - '%kernel.root_dir%/Resources/js/jquery.dataTables.min.js'
                 - '%kernel.root_dir%/Resources/js/dataTables.bootstrap.js'
+                - '%kernel.root_dir%/Resources/js/bootbox.min.js'
                 - '%kernel.root_dir%/Resources/js/table.js'
             output: 'js/combined.js'
         css:

@@ -65,6 +65,43 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/delete/{id}", name="delete")
+     */
+    public function deleteAction($id)
+    {
+        if (empty($id)) {
+            return $this->redirectToRoute('overview', [], 302);
+        }
+
+        $items = $this
+            ->getDoctrine()
+            ->getRepository('MedicineEntityBundle:Item')
+            ->findById(intval($id))
+        ;
+
+        if (count($items) < 1) {
+            return $this->redirectToRoute('overview', [], 302);
+        }
+
+        $item = reset($items);
+        $supplier_items = $this
+            ->getDoctrine()
+            ->getRepository('MedicineEntityBundle:SupplierItem')
+            ->findByItem($item->getId())
+        ;
+
+        $em = $this->getDoctrine()->getManager();
+        foreach ($supplier_items as $supplier_item) {
+            $em->remove($supplier_item);
+        }
+
+        $em->remove($item);
+        $em->flush();
+
+        return $this->redirectToRoute('overview', [], 302);
+    }
+
+    /**
      * Setup $this->form object to its initial configuration.
      */
     public function setupItemForm()
@@ -72,9 +109,9 @@ class DefaultController extends Controller
         $this->form = $this->createFormBuilder([])
             ->add('id', 'hidden')
             ->add('name', 'text')
-            ->add('description', 'text')
-            ->add('stock_hospital', 'text', ['label' => 'Stock hospital'])
-            ->add('stock_private', 'text', ['label' => 'Stock private'])
+            ->add('description', 'text', ['required' => false])
+            ->add('stock_hospital', 'integer', ['label' => 'Stock hospital'])
+            ->add('stock_private', 'integer', ['label' => 'Stock private'])
             ->add('send', 'submit', ['label' => 'Save'])
             ->getForm()
         ;
