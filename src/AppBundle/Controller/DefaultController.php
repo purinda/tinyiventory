@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Medicine\Entity\Bundle\Entity\Item;
 use Medicine\Entity\Bundle\Entity\SupplierItem;
 
@@ -102,6 +103,40 @@ class DefaultController extends Controller
     }
 
     /**
+     * @Route("/reduce/{id}/{qty}", name="reduce_qty")
+     */
+    public function reduceQtyAction($id, $qty)
+    {
+        $ret = ['result' => false];
+
+        if (empty($id)) {
+            return new JsonResponse($ret);
+        }
+
+        $supplier_items = $this
+            ->getDoctrine()
+            ->getRepository('MedicineEntityBundle:SupplierItem')
+            ->findById($id)
+        ;
+
+        $supplier_item = reset($supplier_items);
+        if ($supplier_item->getQuantityAvailable() >= intval($qty)) {
+            $supplier_item->setQuantityAvailable(
+                $supplier_item->getQuantityAvailable() -
+                intval($qty)
+            );
+
+            $ret['result'] = true;
+            $ret['qty'] = $supplier_item->getQuantityAvailable();
+        }
+
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
+
+        return new JsonResponse($ret);
+    }
+
+    /**
      * Setup $this->form object to its initial configuration.
      */
     public function setupItemForm()
@@ -115,17 +150,6 @@ class DefaultController extends Controller
             ->add('send', 'submit', ['label' => 'Save'])
             ->getForm()
         ;
-    }
-
-    /**
-     * Update QTY.
-     *
-     * @param Request $request
-     *
-     * @return bool
-     */
-    public function updateQty(Request $request)
-    {
     }
 
     /**

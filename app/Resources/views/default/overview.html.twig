@@ -24,8 +24,8 @@
         <th></th>
     </tfoot>
     <tbody>
-    {% for supplier_item_id, item in items %}
-      <tr data-supplier-item-id="{{ supplier_item_id }}">
+    {% for item_id, item in items %}
+      <tr data-supplier-item-id="{{ item_id }}">
         <td class="first">{{ item.name }}</td>
         <td class="second">{{ item.description }}</td>
         {% for supplier_id, supplier_item in item.suppliers %}
@@ -41,9 +41,9 @@
           <h4><span class="label label-{{ class }}">{{ supplier_item.qty }}</span></h4>
           {% if not supplier_item.qty <= 0 %}
           <div class="input-group">
-            <input type="text" data-supplier-id="{{ supplier_id }}" class="stock-qty form-control" placeholder="1" size="1">
+            <input type="text" data-supplier-item-id="{{ supplier_item.id }}" class="stock-qty form-control" placeholder="1" size="1">
             <span class="input-group-btn">
-              <button data-supplier-id='{{ supplier_item.id }}' class="btn btn-default">
+              <button class="btn btn-default btn-minus">
                 <i class="glyphicon glyphicon-minus-sign"></i>
               </button>
             </span>
