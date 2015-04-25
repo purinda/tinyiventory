@@ -7,7 +7,7 @@ table#inventory tbody tr td {
     text-align: center;
 }
 
-table#inventory tbody tr td.item {
+table#inventory tbody tr td.first, table#inventory tbody tr td.second {
     text-align: left;
     vertical-align: middle;
 }

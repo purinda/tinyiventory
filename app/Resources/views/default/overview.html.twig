@@ -8,6 +8,7 @@
     <thead>
       <tr>
         <th>Item</th>
+        <th>Description</th>
         {% for item in suppliers %}
         <th>Stock: {{ item.name }}</th>
         {% endfor %}
@@ -16,39 +17,49 @@
     </thead>
     <tfoot>
         <th>Item</th>
+        <th>Description</th>
         {% for item in suppliers %}
         <th>Stock: {{ item.name }}</th>
         {% endfor %}
         <th></th>
     </tfoot>
     <tbody>
-    {% for item in items %}
-      <tr>
-        <td class="item">{{ item.name }}</td>
-        {% for supplier_item in item.suppliers %}
-        <td>
+    {% for supplier_item_id, item in items %}
+      <tr data-supplier-item-id="{{ supplier_item_id }}">
+        <td class="first">{{ item.name }}</td>
+        <td class="second">{{ item.description }}</td>
+        {% for supplier_id, supplier_item in item.suppliers %}
+        <td class="supplier">
           {# Decide color based on stock level  #}
-          {% if supplier_item.qty < 100 %}
+          {% if supplier_item.qty == 0 %}
+            {% set class = 'default' %}
+          {% elseif supplier_item.qty < 100 %}
             {% set class = 'danger' %}
           {% else %}
             {% set class = 'success' %}
           {% endif %}
           <h4><span class="label label-{{ class }}">{{ supplier_item.qty }}</span></h4>
+          {% if not supplier_item.qty <= 0 %}
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="1" size="1">
+            <input type="text" data-supplier-id="{{ supplier_id }}" class="stock-qty form-control" placeholder="1" size="1">
             <span class="input-group-btn">
               <button data-supplier-id='{{ supplier_item.id }}' class="btn btn-default">
                 <i class="glyphicon glyphicon-minus-sign"></i>
               </button>
             </span>
           </div>
+          {% endif %}
         </td>
        {% endfor %}
         <td>
-          <button class="btn btn-primary">
-            <i class="glyphicon glyphicon-list-alt"></i>
-            Edit
-          </button>
+          <div class="btn-group" role="group">
+            <button class="btn btn-primary btn-edit" data-toggle="modal" data-target="#newItemModal">
+              <i class="glyphicon glyphicon-list-alt"></i>
+            </button>
+            <button class="btn btn-danger btn-delete">
+              <i class="glyphicon glyphicon-remove-circle"></i>
+            </button>
+          </div>
         </td>
       </tr>
     {% endfor %}

@@ -27,12 +27,13 @@
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="newItemModalLabel">New item</h4>
+        <h4 class="modal-title" id="newItemModalLabel">Item information</h4>
       </div>
       {% form_theme form 'bootstrap_3_layout.html.twig' %}
       {{ form_start(form) }}
         <div class="modal-body">
           <div class="form-group">
+            {{ form_row(form.id) }}
             {{ form_row(form.name, {'attr': {'placeholder':'Manufacturer name of the item'}}) }}
             {{ form_row(form.description, {'attr': {'placeholder':'Note about the medicine'}}) }}
             {{ form_row(form.stock_hospital, {'attr': {'placeholder':'#'}}) }}

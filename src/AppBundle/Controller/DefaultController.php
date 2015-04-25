@@ -70,6 +70,7 @@ class DefaultController extends Controller
     public function setupItemForm()
     {
         $this->form = $this->createFormBuilder([])
+            ->add('id', 'hidden')
             ->add('name', 'text')
             ->add('description', 'text')
             ->add('stock_hospital', 'text', ['label' => 'Stock hospital'])
@@ -77,6 +78,17 @@ class DefaultController extends Controller
             ->add('send', 'submit', ['label' => 'Save'])
             ->getForm()
         ;
+    }
+
+    /**
+     * Update QTY.
+     *
+     * @param Request $request
+     *
+     * @return bool
+     */
+    public function updateQty(Request $request)
+    {
     }
 
     /**
@@ -89,17 +101,33 @@ class DefaultController extends Controller
     public function save(Request $request)
     {
         try {
-            $em = $this->getDoctrine()->getManager();
+            $em   = $this->getDoctrine()->getManager();
             $data = $this->form->getData();
 
-            $item = new Item();
-            $item
-                ->setName($data['name'])
-                ->setDescription($data['description'])
-            ;
+            // Decide save | update
+            if (isset($data['id']) && !empty($data['id'])) {
+                $items = $this
+                    ->getDoctrine()
+                    ->getRepository('MedicineEntityBundle:Item')
+                    ->findById($data['id'])
+                ;
 
-            // persist
-            $em->persist($item);
+                $item = reset($items);
+                $item
+                    ->setName($data['name'])
+                    ->setDescription($data['description'])
+                ;
+            } else {
+                $item = new Item();
+                $item
+                    ->setName($data['name'])
+                    ->setDescription($data['description'])
+                ;
+
+                // persist
+                $em->persist($item);
+            }
+
             $em->flush();
 
             // Find supplier based on name (Private, Hospital)
@@ -114,6 +142,18 @@ class DefaultController extends Controller
                 ->getRepository('MedicineEntityBundle:Supplier')
                 ->findByName('Hospital')
             ;
+
+            // Remove supplier items before insert/update
+            $supplier_items = $this
+                ->getDoctrine()
+                ->getRepository('MedicineEntityBundle:SupplierItem')
+                ->findByItem($item->getId())
+            ;
+
+            foreach ($supplier_items as $supplier_item) {
+                $em->remove($supplier_item);
+            }
+            $em->flush();
 
             // Set Supplier Item Availability
             $supplier_hospital_item = new SupplierItem();
