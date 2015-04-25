@@ -25,6 +25,8 @@ class DefaultController extends Controller
 
         if ($this->form->isValid()) {
             $this->save($request);
+
+            return $this->redirectToRoute('overview', [], 302);
         }
 
         // Find all SupplierItems
@@ -86,52 +88,58 @@ class DefaultController extends Controller
      */
     public function save(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
-        $data = $this->form->getData();
+        try {
+            $em = $this->getDoctrine()->getManager();
+            $data = $this->form->getData();
 
-        $item = new Item();
-        $item
-            ->setName($data['name'])
-            ->setDescription($data['description'])
-        ;
+            $item = new Item();
+            $item
+                ->setName($data['name'])
+                ->setDescription($data['description'])
+            ;
 
-        // persist
-        $em->persist($item);
-        $em->flush();
+            // persist
+            $em->persist($item);
+            $em->flush();
 
-        // Find supplier based on name (Private, Hospital)
-        $supplier_private = $this
-            ->getDoctrine()
-            ->getRepository('MedicineEntityBundle:Supplier')
-            ->findByName('Private')
-        ;
+            // Find supplier based on name (Private, Hospital)
+            $supplier_private = $this
+                ->getDoctrine()
+                ->getRepository('MedicineEntityBundle:Supplier')
+                ->findByName('Private')
+            ;
 
-        $supplier_hospital = $this
-            ->getDoctrine()
-            ->getRepository('MedicineEntityBundle:Supplier')
-            ->findByName('Hospital')
-        ;
+            $supplier_hospital = $this
+                ->getDoctrine()
+                ->getRepository('MedicineEntityBundle:Supplier')
+                ->findByName('Hospital')
+            ;
 
-        // Set Supplier Item Availability
-        $supplier_hospital_item = new SupplierItem();
-        $supplier_hospital_item
-            ->setSupplier($supplier_hospital[0])
-            ->setItem($item)
-            ->setQuantityAvailable($data['stock_hospital'])
-        ;
+            // Set Supplier Item Availability
+            $supplier_hospital_item = new SupplierItem();
+            $supplier_hospital_item
+                ->setSupplier($supplier_hospital[0])
+                ->setItem($item)
+                ->setQuantityAvailable($data['stock_hospital'])
+            ;
 
-        $supplier_private_item = new SupplierItem();
-        $supplier_private_item
-            ->setSupplier($supplier_private[0])
-            ->setItem($item)
-            ->setQuantityAvailable($data['stock_private'])
-        ;
+            $supplier_private_item = new SupplierItem();
+            $supplier_private_item
+                ->setSupplier($supplier_private[0])
+                ->setItem($item)
+                ->setQuantityAvailable($data['stock_private'])
+            ;
 
-        // persist
-        $em->persist($supplier_hospital_item);
-        $em->persist($supplier_private_item);
-        $em->flush();
+            // persist
+            $em->persist($supplier_hospital_item);
+            $em->persist($supplier_private_item);
+            $em->flush();
+        } catch (\Exception $e) {
+            return false;
+        }
 
         $this->setupItemForm();
+
+        return true;
     }
 }
