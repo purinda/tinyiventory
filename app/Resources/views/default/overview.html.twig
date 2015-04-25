@@ -39,8 +39,7 @@
             {% set class = 'success' %}
           {% endif %}
           <h4><span class="label label-{{ class }}">{{ supplier_item.qty }}</span></h4>
-          {% if not supplier_item.qty <= 0 %}
-          <div class="input-group hidden-xs">
+          <div class="input-group hidden-xs pull-right">
             <input type="text" data-supplier-item-id="{{ supplier_item.id }}" class="stock-qty form-control" placeholder="1" size="1">
             <span class="input-group-btn">
               <button class="btn btn-default btn-minus">
@@ -48,7 +47,6 @@
               </button>
             </span>
           </div>
-          {% endif %}
         </td>
        {% endfor %}
         <td>
