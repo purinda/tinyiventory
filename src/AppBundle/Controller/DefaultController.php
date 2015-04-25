@@ -165,6 +165,11 @@ class DefaultController extends Controller
             $em   = $this->getDoctrine()->getManager();
             $data = $this->form->getData();
 
+            // If optional parameter is not set
+            if (!isset($data['description'])) {
+                $data['description'] = '';
+            }
+
             // Decide save | update
             if (isset($data['id']) && !empty($data['id'])) {
                 $items = $this

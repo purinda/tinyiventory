@@ -7,7 +7,7 @@
   <table id="inventory" class="table table-striped table-bordered" cellspacing="0" width="100%">
     <thead>
       <tr>
-        <th>Item</th>
+        <th>Drug</th>
         <th>Description</th>
         {% for item in suppliers %}
         <th>Stock: {{ item.name }}</th>
@@ -16,7 +16,7 @@
       </tr>
     </thead>
     <tfoot>
-        <th>Item</th>
+        <th>Drug</th>
         <th>Description</th>
         {% for item in suppliers %}
         <th>Stock: {{ item.name }}</th>
