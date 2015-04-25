@@ -95,6 +95,7 @@ $(document).ready(function() {
 
     // Button add
     $('li.btn-additem').on('click', function(evt) {
+        $('div#newItemModal').find('input#form_id').val('');
         $('div#newItemModal').find('form')[0].reset();
     });
 });
